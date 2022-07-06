@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserContext from './Components/contexts/UserContext';
 import GlobalStyle from './Components/styles/GlobalStyle';
 import TelaLogin from './Components/TelaLogin';
+import TelaHome from './Components/TelaHome';
 
 function App() {
 
@@ -16,7 +17,8 @@ function App() {
       <BrowserRouter>
 
         <Routes>
-          <Route path={'/'} element={<TelaLogin />} />
+          <Route path={'/'} element={<TelaHome />} />
+          <Route path={'/login'} element={<TelaLogin />} />
         </Routes>
 
       </BrowserRouter>
