@@ -4,6 +4,7 @@ import UserContext from './Components/contexts/UserContext';
 import GlobalStyle from './Components/styles/GlobalStyle';
 import LoginScreen from './Components/LoginScreen';
 import HomeScreen from './Components/HomeScreen';
+import RegisterScreen from './Components/RegisterScreen';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<HomeScreen />} />
           <Route path={'/login'} element={<LoginScreen />} />
+          <Route path={'/register'} element={<RegisterScreen />} />
         </Routes>
 
       </BrowserRouter>
