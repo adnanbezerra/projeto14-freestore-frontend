@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserContext from './Components/contexts/UserContext';
 import GlobalStyle from './Components/styles/GlobalStyle';
-import TelaLogin from './Components/TelaLogin';
-import TelaHome from './Components/TelaHome';
+import LoginScreen from './Components/LoginScreen';
+import HomeScreen from './Components/HomeScreen';
 
 function App() {
 
@@ -17,8 +17,8 @@ function App() {
       <BrowserRouter>
 
         <Routes>
-          <Route path={'/'} element={<TelaHome />} />
-          <Route path={'/login'} element={<TelaLogin />} />
+          <Route path={'/'} element={<HomeScreen />} />
+          <Route path={'/login'} element={<LoginScreen />} />
         </Routes>
 
       </BrowserRouter>
