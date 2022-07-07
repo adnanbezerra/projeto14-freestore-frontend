@@ -7,24 +7,24 @@ export default function Footer() {
 
     return (
         <FooterWrapper>
-            <div>
-                <FaHome onClick={() => navigate('/')} className="footer-icon" />
+            <div onClick={() => navigate('/')}>
+                <FaHome className="footer-icon" />
                 <p>Inicio</p>
             </div>
-            <div>
-                <FaThLarge onClick={() => navigate('/categories')} className="footer-icon" />
+            <div onClick={() => navigate('/categories')}>
+                <FaThLarge className="footer-icon" />
                 <p>Categorias</p>
             </div>
-            <div>
-                <FaUser onClick={() => navigate('/user')} className="footer-icon" />
+            <div onClick={() => navigate('/user')}>
+                <FaUser className="footer-icon" />
                 <p>Perfil</p>
             </div>
-            <div>
-                <FaTags onClick={() => navigate('/sell')} className="footer-icon" />
+            <div onClick={() => navigate('/sell')}>
+                <FaTags className="footer-icon" />
                 <p>Vender</p>
             </div>
-            <div>
-                <FaShoppingCart onClick={() => navigate('/cart')} className="footer-icon" />
+            <div onClick={() => navigate('/cart')}>
+                <FaShoppingCart className="footer-icon" />
                 <p>Carrinho</p>
             </div>
         </FooterWrapper>
