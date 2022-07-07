@@ -10,25 +10,28 @@ import { BASE_URL, config } from "../../mock/data";
 export default function UserScreen() {
 
     const { user } = useContext(UserContext);
+
     const [recentAquisitions, setRecentAquisitions] = useState([]);
     const navigate = useNavigate();
 
+    const verifyUser = user === undefined;
+
     useEffect(() => {
-        if (!user) navigate('/login');
+        if (verifyUser) navigate('/login', {replace: true});
+        else getSells(); 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
+    function getSells() {
         const headers = config(user.token, user.refresh)
-        axios.get(`${BASE_URL}/`, headers)
+        axios.get(`${BASE_URL}/sells`, headers)
             .then(response => {
                 setRecentAquisitions(response.data);
             })
             .error(error => {
                 console.log(error);
             })
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }
 
     function renderAquisitions() {
         return (
@@ -52,7 +55,7 @@ export default function UserScreen() {
 
     return (
         <Layout>
-            <Banner><p>Olá, <UserName>Acdena</UserName>!</p> <UserConfig><img src="http://2.bp.blogspot.com/-9LDW2KupQh4/TlbxEUJusFI/AAAAAAAAAKM/UcdcwRjACEo/s320/S%25C3%25A3o+Lu%25C3%25ADs+da+Fran%25C3%25A7a+2+-+c%25C3%25B3pia.jpg" alt="" /> <Edit onClick={() => navigate('/edit')}><FiEdit2></FiEdit2></Edit>  </UserConfig></Banner>
+            <Banner><p>Olá, <UserName>{verifyUser ? "" : user.username}</UserName>!</p> <UserConfig><img src={verifyUser ? "" : user.profilePicture} alt="" /> <Edit onClick={() => navigate('/edit')}><FiEdit2></FiEdit2></Edit>  </UserConfig></Banner>
             <Recents>Compras recentes</Recents>
             {recentAquisitions ? <CardContainer>{renderAquisitions()}</CardContainer> : <NoRecent>Nenhuma compra feita ainda!</NoRecent>}
             {/* <CardContainer>{renderAquisitions()}</CardContainer> */}
