@@ -32,6 +32,7 @@ export default function RegisterScreen() {
             })
             .catch(error => {
                 alert('Problema no cadastro! Tente novamente.')
+                console.log(error)
             })
 
     }
@@ -133,7 +134,7 @@ const Title = styled.div`
 
 const Container = styled.div`
     display: flex;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     flex-direction: column;
     justify-content: center;
