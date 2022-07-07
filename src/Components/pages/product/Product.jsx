@@ -18,24 +18,26 @@ export default function Product() {
         getProduct(setProduct, id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    console.log(product)
 
     return (
         <Layout>
-            <PageTitle title={category} subtitle="produto" />
+            <PageTitle title={category} subtitle={product.name} />
             <ShowProductCard 
-                img={product.image}
+                images={product.images}
                 name={product.name}
                 category={product.category}
                 description={product.description}
                 price={product.price}
                 seller={product.seller}
+                amount={product.quantity}
             />
             <PageTitle title="Produtos" subtitle="Relacionados" />
             <RelatedProdutcsWrapper>
                 {products.map(product => {
                     if(product._id !== id) {
                         return (
-                            <ProductCard key={product._id} backgroundImg={product.image} name={product.name} price={product.price}
+                            <ProductCard key={product._id} backgroundImg={product.images[0]} name={product.name} price={product.price}
                                 showProduct={() => navigate(`/product/${product.category}/${product._id}`)} sendToCart={() => navigate('/categories')} />
                         )
                     }

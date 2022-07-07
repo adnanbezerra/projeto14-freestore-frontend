@@ -1,14 +1,35 @@
 import { PriceAndName, Quantity, ShowProductWrapper } from "./ShowProductCardStyle";
 import { FaShoppingCart } from 'react-icons/fa'
 import { useState } from "react";
+import { Carousel } from "react-responsive-carousel";
+import { useNavigate } from 'react-router-dom';
 
-export default function ShowProductCard({ img, name, price, category, seller, description }) {
-    const [quantity, setQuantity] = useState(0)
+export default function ShowProductCard({ images, name, price, category, seller, description, amount }) {
+    const [quantity, setQuantity] = useState(1)
+    const navigate = useNavigate()
+
+    function restringeQuantity(action) {
+        if(action === '+') {
+            if(quantity < amount) {
+                setQuantity(quantity + 1)
+            }
+        } else {
+            if(quantity > 1) {
+                setQuantity(quantity - 1)
+            }
+        }
+    }
 
     return (
         <ShowProductWrapper>
             <div className="product-images">
-                <img src={img} alt="product-show" />
+            <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false} className="carousel">
+                    {images ? images.map((image, i) =>
+                        <div key={i}>
+                            <img style={{ height: '550px', objectFit: 'contain' }} src={image} alt="carousel-product" />
+                        </div>
+                    ) : ''}
+                </Carousel>
             </div>
             <div className="product-infos">
                 <PriceAndName>
@@ -26,12 +47,13 @@ export default function ShowProductCard({ img, name, price, category, seller, de
                 <Quantity>
                     <h2>Quantidade</h2>
                     <div>
-                        <button onClick={() => setQuantity(quantity + 1)}><span>+</span></button>
+                        <button onClick={() => restringeQuantity('+')}><span>+</span></button>
                         <button className="quantity"><span>{quantity}</span></button>
-                        <button onClick={() => setQuantity(quantity - 1)}><span>-</span></button>
+                        <button onClick={() => restringeQuantity('-')}><span>-</span></button>
                     </div>
                 </Quantity>
-                <button className="cart"><FaShoppingCart /></button>
+                <h3>Quantidade disponível: {amount}</h3>
+                <button className="cart" onClick={() => navigate('/cart')}><FaShoppingCart /></button>
             </div>
         </ShowProductWrapper>
     )
