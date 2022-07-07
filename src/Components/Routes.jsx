@@ -4,6 +4,7 @@ import HomeScreen from './pages/home/HomeScreen'
 import LoginScreen from './pages/LoginScreen'
 import Product from './pages/product/Product';
 import RegisterScreen from './pages/RegisterScreen';
+import UserScreen from './pages/UserScreen';
 
 export default function Router() {
     return (
@@ -15,6 +16,7 @@ export default function Router() {
                 <Route path="/categories/:category" element={<CategoriesScreen />} />
                 <Route path="/product/:category/:id" element={<Product />} />
                 <Route path="/register" element={<RegisterScreen />} />
+                <Route path="/user" element={<UserScreen />} />
             </Routes>
         </BrowserRouter>
     )
