@@ -6,4 +6,9 @@ async function getProducts(setProducts, category = '') {
     setProducts(productsData.data)
 }
 
-export { getProducts }
+async function getProduct(setProduct, id) {
+    const productData = await axios.get(`${BASE_URL}/products/${id}`)
+    setProduct(productData.data)
+}
+
+export { getProducts, getProduct }

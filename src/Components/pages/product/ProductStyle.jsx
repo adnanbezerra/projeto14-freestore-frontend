@@ -7,6 +7,7 @@ export const RelatedProdutcsWrapper = styled.div`
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
+    height: 350px;
 
     &::-webkit-scrollbar {
         height: 8px;
@@ -19,10 +20,6 @@ export const RelatedProdutcsWrapper = styled.div`
     @media screen and (max-width: 450px) {
         &::-webkit-scrollbar {
             display: none;
-        }
-
-        & {
-            height: 170px;
         }
     }
 `

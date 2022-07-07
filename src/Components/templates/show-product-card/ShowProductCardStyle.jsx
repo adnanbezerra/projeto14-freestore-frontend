@@ -33,6 +33,7 @@ export const ShowProductWrapper = styled.div`
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 15px;
     }
 
     h3, h4 {
@@ -91,7 +92,6 @@ export const ShowProductWrapper = styled.div`
             width: 90%;
             position: relative;
             margin-top: -50px;
-            z-index: 1;
         }
     }
 `
