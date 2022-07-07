@@ -13,6 +13,7 @@ export default function RegisterScreen() {
     const [email, setEmail] = useState("")
     const { setUser } = useContext(UserContext);
     const [disable, setDisable] = useState(false);
+    const [profilePicture, setProfilePicture] = useState("");
 
     const navigate = useNavigate();
 
@@ -22,7 +23,13 @@ export default function RegisterScreen() {
 
     function submitForm(event) {
         event.preventDefault();
-        const login = { email, password, name }
+
+        if(!profilePicture.startsWith('https://')) {
+            alert("Link da foto de perfil inválido!")
+            return;
+        }
+
+        const login = { email, password, profilePicture, name }
 
         axios.post('http://localhost:5000/register', login)
             .then(response => {
@@ -63,6 +70,8 @@ export default function RegisterScreen() {
                 <Input type={"text"} placeholder={'Insira seu nome'} value={name} onChange={e => setName(e.target.value)} />
                 <Label>E-mail</Label>
                 <Input type={"email"} placeholder={'Insira seu e-mail'} value={email} onChange={e => setEmail(e.target.value)} />
+                <Label>Foto de perfil</Label>
+                <Input type='text' placeholder={'Link para sua foto de perfil'} value={profilePicture} onChange={e => setProfilePicture(e.target.value)} />
                 <Label>Senha</Label>
                 <Input type={'password'} placeholder={'Insira sua senha'} value={password} onChange={e => handleSetPassword(e.target.value)} />
                 <Label>Confirmar senha</Label>
@@ -72,7 +81,7 @@ export default function RegisterScreen() {
 
             </Form>
 
-            <Register>Já tem uma conta? <Link to='/login' style={{ fontWeight: 'bold', textDecoration: 'none', color: '#e91e63' }}>Faça login!</Link></Register>
+            <Register>Já tem uma conta? <Link to='/login' style={{ fontWeight: 'bold', color: '#e91e63' }}>Faça login!</Link></Register>
 
         </Container>
     )
@@ -81,8 +90,7 @@ export default function RegisterScreen() {
 const Register = styled.p`
     color: white;
     font-size: 16px;
-    position: fixed;
-    bottom: 25px;
+    margin-bottom: 20px;
 `
 
 const Label = styled.p`
@@ -126,13 +134,14 @@ const Title = styled.div`
     font-weight: bold;
     color: white;
     margin-bottom: 15px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
 `
 
 const Container = styled.div`
     display: flex;
-    height: 100%;
+    height: fit-content;
     width: 100%;
     flex-direction: column;
     justify-content: center;
