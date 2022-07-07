@@ -25,6 +25,7 @@ export default function TelaLogin() {
             })
             .catch( error => {
                 alert('Problema no login! Tente novamente.')
+                console.log(error);
             })
 
     }
@@ -43,7 +44,7 @@ export default function TelaLogin() {
 
             </Form>
 
-            <Register>Primeira vez? <Link to='/cadastro' style={{ fontWeight: 'bold', textDecoration: 'none', color: '#e91e63' }}>Registre-se agora!</Link></Register>
+            <Register>Primeira vez? <Link to='/register' style={{ fontWeight: 'bold', textDecoration: 'none', color: '#e91e63' }}>Registre-se agora!</Link></Register>
 
         </Container>
     )
