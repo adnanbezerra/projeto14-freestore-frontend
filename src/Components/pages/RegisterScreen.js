@@ -18,6 +18,7 @@ export default function RegisterScreen() {
 
     useEffect( () => {
         arePasswordsEqual();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [password, confirmPassword]) 
 
     function submitForm(event) {

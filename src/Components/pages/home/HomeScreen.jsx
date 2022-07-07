@@ -2,7 +2,7 @@ import { categories, carouselImages } from "../../../mock/data";
 import CategoryCard from "../../templates/category-card/CategoryCard";
 import Layout from "../../templates/layout/Layout";
 import ProductCard from "../../templates/product-card/ProductCard";
-import PageTitle from "../../templates/title/PageTitle";
+import PageTitle from "../../templates/page-title/PageTitle";
 import { HomeWrapper } from "./HomeStyle";
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css";

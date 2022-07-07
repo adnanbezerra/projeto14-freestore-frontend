@@ -2,7 +2,7 @@ import Layout from "../../templates/layout/Layout";
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { getProducts } from "../../../functions/products";
-import PageTitle from "../../templates/title/PageTitle";
+import PageTitle from "../../templates/page-title/PageTitle";
 import { categories } from "../../../mock/data";
 import CategoryCard from "../../templates/category-card/CategoryCard";
 import ProductCard from "../../templates/product-card/ProductCard";
