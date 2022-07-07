@@ -16,14 +16,14 @@ export default function TelaLogin() {
 
     function submitForm(event) {
         event.preventDefault();
-        const login = {email, password}
+        const login = { email, password }
 
         axios.post('http://localhost:5000/login', login)
-            .then( response => {
+            .then(response => {
                 navigate('/')
                 setUser(response.data);
             })
-            .catch( error => {
+            .catch(error => {
                 alert('Problema no login! Tente novamente.')
                 console.log(error);
             })
@@ -32,7 +32,7 @@ export default function TelaLogin() {
 
     return (
         <Container>
-            <Title> <img src={logo} alt={""} style={{marginRight: '5px', marginBottom: '10px'}} /> FreeStore</Title>
+            <Title onClick={() => navigate('/')}> <img src={logo} alt={""} style={{ marginRight: '5px', marginBottom: '10px' }} /> FreeStore</Title>
 
             <Form onSubmit={submitForm}>
 

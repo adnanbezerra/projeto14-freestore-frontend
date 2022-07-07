@@ -17,15 +17,15 @@ export default function RegisterScreen() {
 
     const navigate = useNavigate();
 
-    useEffect( () => {
+    useEffect(() => {
         arePasswordsEqual();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [password, confirmPassword]) 
+    }, [password, confirmPassword])
 
     function submitForm(event) {
         event.preventDefault();
 
-        if(!profilePicture.startsWith('https://')) {
+        if (!profilePicture.startsWith('https://')) {
             alert("Link da foto de perfil inválido!")
             return;
         }
@@ -53,18 +53,18 @@ export default function RegisterScreen() {
     }
 
     function arePasswordsEqual() {
-        if(confirmPassword === "") setDisable(false);
+        if (confirmPassword === "") setDisable(false);
         else if (confirmPassword !== "" && confirmPassword === password) setDisable(false);
         else setDisable(true);
     }
 
     function getButton() {
-        return ( disable ? <Button disabled={true}>Login</Button> : <Button disabled={false}>Login</Button> )
+        return (disable ? <Button disabled={true}>Login</Button> : <Button disabled={false}>Login</Button>)
     }
 
     return (
         <Container>
-            <Title> <img src={logo} alt={""} style={{ marginRight: '5px', marginBottom: '10px' }} /> FreeStore</Title>
+            <Title onClick={() => navigate('/')}> <img src={logo} alt={""} style={{ marginRight: '5px', marginBottom: '10px' }} /> FreeStore</Title>
 
             <Form onSubmit={submitForm}>
 
