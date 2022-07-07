@@ -14,7 +14,7 @@ export default function Router() {
                 <Route path={'/login'} element={<LoginScreen />} />
                 <Route path="/categories" element={<CategoriesScreen />} />
                 <Route path="/categories/:category" element={<CategoriesScreen />} />
-                <Route path="/product/:id" element={<Product />} />
+                <Route path="/product/:category/:id" element={<Product />} />
                 <Route path="/register" element={<RegisterScreen />} />
                 <Route path="/user" element={<UserScreen />} />
             </Routes>

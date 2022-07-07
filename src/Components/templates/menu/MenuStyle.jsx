@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const MenuWrapper = styled.div`
     .black-screen {
@@ -31,4 +32,19 @@ export const Navbar = styled.div`
         margin-top: 64px;
         margin-left: 25px;
     }
+
+    h1 {
+        font-weight: 200;
+        font-size: 24px;
+        margin: 15px 0;
+    }
+`
+
+export const NavLink = styled(Link)`
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+    display: block;
 `

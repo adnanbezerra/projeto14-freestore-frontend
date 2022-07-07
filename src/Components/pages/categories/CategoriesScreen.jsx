@@ -2,7 +2,7 @@ import Layout from "../../templates/layout/Layout";
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { getProducts } from "../../../functions/products";
-import PageTitle from "../../templates/title/PageTitle";
+import PageTitle from "../../templates/page-title/PageTitle";
 import { categories } from "../../../mock/data";
 import CategoryCard from "../../templates/category-card/CategoryCard";
 import ProductCard from "../../templates/product-card/ProductCard";
@@ -28,7 +28,7 @@ export default function CategoriesScreen() {
                     <div className="products-category">
                         {productsByCategory.map(product =>  
                             <ProductCard key={product._id} backgroundImg={product.image} name={product.name} price={product.price}
-                                showProduct={() => navigate(`/product/${product._id}`)} sendToCart={() => navigate('/categories')} />
+                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} sendToCart={() => navigate('/categories')} />
                         )}
                     </div>
                 ) : (

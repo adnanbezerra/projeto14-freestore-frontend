@@ -19,6 +19,7 @@ export default function RegisterScreen() {
 
     useEffect( () => {
         arePasswordsEqual();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [password, confirmPassword]) 
 
     function submitForm(event) {
@@ -38,6 +39,7 @@ export default function RegisterScreen() {
             })
             .catch(error => {
                 alert('Problema no cadastro! Tente novamente.')
+                console.log(error)
             })
 
     }
@@ -141,8 +143,7 @@ const Title = styled.div`
 
 const Container = styled.div`
     display: flex;
-    height: fit-content;
-    width: 100%;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
