@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CategoriesScreen from './pages/categories/CategoriesScreen';
+import EditUserScreen from './pages/EditUserScreen';
 import HomeScreen from './pages/home/HomeScreen'
 import LoginScreen from './pages/LoginScreen'
 import Product from './pages/product/Product';
@@ -17,6 +18,7 @@ export default function Router() {
                 <Route path="/product/:category/:id" element={<Product />} />
                 <Route path="/register" element={<RegisterScreen />} />
                 <Route path="/user" element={<UserScreen />} />
+                <Route path="/editUser" element={<EditUserScreen />} />
             </Routes>
         </BrowserRouter>
     )
