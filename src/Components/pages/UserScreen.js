@@ -10,7 +10,7 @@ import { BASE_URL, config } from "../../mock/data";
 export default function UserScreen() {
 
     const { user } = useContext(UserContext);
-    const [recentAquisitions, setRecentAquisitions] = useState([{ name: 'Baby doido', seller: "", description: "Descriçãooooooooooooooooooooooo", picture: "https://static.vecteezy.com/system/resources/previews/000/661/985/non_2x/vector-cute-cartoon-baby-dancing-happily-music.jpg", price: "50.00" }]);
+    const [recentAquisitions, setRecentAquisitions] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
