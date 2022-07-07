@@ -81,7 +81,7 @@ export default function RegisterScreen() {
 
             </Form>
 
-            <Register>Já tem uma conta? <Link to='/login' style={{ fontWeight: 'bold', textDecoration: 'none', color: '#e91e63' }}>Faça login!</Link></Register>
+            <Register>Já tem uma conta? <Link to='/login' style={{ fontWeight: 'bold', color: '#e91e63' }}>Faça login!</Link></Register>
 
         </Container>
     )
@@ -90,8 +90,7 @@ export default function RegisterScreen() {
 const Register = styled.p`
     color: white;
     font-size: 16px;
-    position: fixed;
-    bottom: 25px;
+    margin-bottom: 20px;
 `
 
 const Label = styled.p`
@@ -135,13 +134,14 @@ const Title = styled.div`
     font-weight: bold;
     color: white;
     margin-bottom: 15px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
 `
 
 const Container = styled.div`
     display: flex;
-    height: 100%;
+    height: fit-content;
     width: 100%;
     flex-direction: column;
     justify-content: center;

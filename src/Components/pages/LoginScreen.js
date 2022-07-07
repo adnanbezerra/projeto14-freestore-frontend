@@ -44,7 +44,7 @@ export default function TelaLogin() {
 
             </Form>
 
-            <Register>Primeira vez? <Link to='/register' style={{ fontWeight: 'bold', textDecoration: 'none', color: '#e91e63' }}>Registre-se agora!</Link></Register>
+            <Register>Primeira vez? <Link to='/register' style={{ fontWeight: 'bold', color: '#e91e63' }}>Registre-se agora!</Link></Register>
 
         </Container>
     )
