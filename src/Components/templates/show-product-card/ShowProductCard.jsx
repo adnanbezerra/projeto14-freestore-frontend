@@ -1,20 +1,15 @@
 import { PriceAndName, Quantity, ShowProductWrapper } from "./ShowProductCardStyle";
 import { FaShoppingCart } from 'react-icons/fa'
-import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
-import { useNavigate } from 'react-router-dom';
 
-export default function ShowProductCard({ images, name, price, category, seller, description, amount }) {
-    const [quantity, setQuantity] = useState(1)
-    const navigate = useNavigate()
-
+export default function ShowProductCard({ images, name, price, category, seller, description, amount, insertToCart, quantity, setQuantity }) {
     function restringeQuantity(action) {
         if(action === '+') {
             if(quantity < amount) {
                 setQuantity(quantity + 1)
             }
         } else {
-            if(quantity > 1) {
+            if(quantity > 0) {
                 setQuantity(quantity - 1)
             }
         }
@@ -52,8 +47,8 @@ export default function ShowProductCard({ images, name, price, category, seller,
                         <button onClick={() => restringeQuantity('-')}><span>-</span></button>
                     </div>
                 </Quantity>
-                <h3>Quantidade disponível: {amount}</h3>
-                <button className="cart" onClick={() => navigate('/cart')}><FaShoppingCart /></button>
+                {amount === 0 ? <h3 style={{ color: 'red' }}>Produto indisponivel</h3> : <h3>Quantidade disponível: {amount}</h3>}
+                <button className="cart" onClick={() => amount === 0 ? false : insertToCart()}><FaShoppingCart /></button>
             </div>
         </ShowProductWrapper>
     )

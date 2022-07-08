@@ -1,4 +1,6 @@
+import axios from "axios";
 import { createContext, useState } from "react";
+import { BASE_URL, config } from "../../mock/data";
 
 const UserContext = createContext();
 
@@ -12,7 +14,31 @@ export function UserProvider({ children }) {
         if (!userAuth.name || !userAuth.profilePicture || !userAuth.token) {
             localStorage.clear()
         } else {
-            setUser(userAuth)
+            if (localStorage.getItem("cartLocal") !== null) {
+                setUser(userAuth)
+
+                const cartLocal = JSON.parse(localStorage.getItem("cartLocal"))
+
+                insertCartLocal(cartLocal, userAuth.token, userAuth.refreshToken)
+            } else {
+                setUser(userAuth)
+            }
+        }
+    }
+
+
+    async function insertCartLocal(cartLocal, token, refreshToken) {
+        const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
+
+        if(cartData.data === null) {
+            await axios.post(`${BASE_URL}/carts`, { cartLocal }, config(token, refreshToken))
+
+            localStorage.removeItem('cartLocal')
+        } else {
+            // const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
+            // await axios.put(`${BASE_URL}/carts/${cartData._id}`, { cartLocal }, config(token, refreshToken))
+
+            localStorage.removeItem('cartLocal')
         }
     }
 
