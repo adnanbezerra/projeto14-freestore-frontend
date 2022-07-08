@@ -6,6 +6,7 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../../mock/data";
+import { config } from "../../mock/data";
 
 export default function EditUserScreen() {
 
@@ -31,9 +32,16 @@ export default function EditUserScreen() {
 
     function submitForm(event) {
         event.preventDefault();
-        const newInfos = {user: { username, email, profilePicture }, password}
+        const newInfos = {userInfo: { _id: user._id, username, email, profilePicture }, password}
 
-        axios.put(`${BASE_URL}/register`, newInfos) 
+        if(!profilePicture.startsWith("http://") || !profilePicture.startsWith("https://")) {
+            alert("Foto inválida!");
+            return;
+        }
+
+        const headers = config(user.token, user.refresh);
+
+        axios.put(`${BASE_URL}/register`, newInfos, headers) 
             .then( response => {
                 alert("Atualização feita com sucesso!");
                 navigate('/');
