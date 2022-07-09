@@ -16,7 +16,7 @@ export default function EditUserScreen() {
     //     profilePicture: "https://i.pinimg.com/222x/c1/e2/31/c1e23101b8ae4e6536a6326b14dea06b.jpg"
     // }
     const { user } = useContext(UserContext);
-    const verifyUser = user === undefined;
+    const verifyUser = user.token === undefined;
 
     const [username, setUsername] = useState(verifyUser ? "" : user.username);
     const [email, setEmail] = useState(verifyUser ? "" : user.email);
