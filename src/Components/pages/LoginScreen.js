@@ -22,6 +22,7 @@ export default function TelaLogin() {
             .then(response => {
                 navigate('/')
                 setUser(response.data);
+                window.location.reload()
             })
             .catch(error => {
                 alert('Problema no login! Tente novamente.')

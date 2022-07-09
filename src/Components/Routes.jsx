@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CartScreen from './pages/cart/CartScreen';
 import CategoriesScreen from './pages/categories/CategoriesScreen';
 import CreateProduct from './pages/SellProductScreen';
 import EditUserScreen from './pages/EditUserScreen';

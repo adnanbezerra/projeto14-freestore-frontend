@@ -38,6 +38,10 @@ export const Navbar = styled.div`
         font-size: 24px;
         margin: 15px 0;
     }
+
+    .categories {
+        cursor: pointer;
+    }
 `
 
 export const NavLink = styled(Link)`
