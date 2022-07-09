@@ -35,6 +35,7 @@ export function UserProvider({ children }) {
 
             localStorage.removeItem('cartLocal')
         } else {
+            // FAZER A PARTE DE SE O USUARIO TIVER ITENS NO CARRINHO E INSERIR ITEMS DESLOGADO ASSIM PEGAR OS ITENS DO LOCALSTORAGE
             // const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
             // await axios.put(`${BASE_URL}/carts/${cartData._id}`, { cartLocal }, config(token, refreshToken))
 

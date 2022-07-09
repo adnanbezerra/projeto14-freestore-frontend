@@ -12,6 +12,7 @@ export default function CartScreen() {
     const navigate = useNavigate()
     const [productsOnCart, setProductsOnCart] = useState([])
     const [cartId, setCartId] = useState('')
+    const [userId, setUserId] = useState('')
     const [total, setTotal] = useState(0)
     const isEmpty = productsOnCart.length > 0
     const { user } = useContext(UserContext)
@@ -32,6 +33,7 @@ export default function CartScreen() {
 
             setProductsOnCart(cartData.data.productsOnCart)
             setCartId(cartData.data._id)
+            setUserId(cartData.data.userId)
             totalCart(cartData.data.productsOnCart)
         }
     }
@@ -78,6 +80,14 @@ export default function CartScreen() {
         setTotal(total.toFixed(2))
     }   
 
+    function finalizePurchase() {
+        if(localStorage.getItem('cartLocal') !== null) {
+            navigate('/login')
+        } else {
+            navigate('/finalize-purchase', { state: { userId, productsOnCart, total } })
+        }
+    }
+
     return (
         <Layout>
             <PageTitle title="Meu" subtitle="Carrinho" />
@@ -98,7 +108,7 @@ export default function CartScreen() {
                                 <p>R$ {total}</p>
                             </div>
                             <div onClick={() => navigate('/categories')}>Adicionar mais itens</div>
-                            <div onClick={() => navigate('/finalize-purchase')}>Prosseguir</div>
+                            <div onClick={finalizePurchase}>Prosseguir</div>
                         </CartButtons>
                     </>
                 ) : <div className="no-products"><h1>Ainda não tem nenhum produto no seu carrinho...</h1></div>}
