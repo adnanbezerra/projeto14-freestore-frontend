@@ -5,6 +5,7 @@ import EditUserScreen from './pages/EditUserScreen';
 import HomeScreen from './pages/home/HomeScreen'
 import LoginScreen from './pages/LoginScreen'
 import Product from './pages/product/Product';
+import PurchaseScreen from './pages/purchase/PurchaseScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import UserScreen from './pages/UserScreen';
 
@@ -21,6 +22,7 @@ export default function Router() {
                 <Route path="/user" element={<UserScreen />} />
                 <Route path="/editUser" element={<EditUserScreen />} />
                 <Route path="/cart" element={<CartScreen />} /> 
+                <Route path="/finalize-purchase" element={<PurchaseScreen />} />
             </Routes>
         </BrowserRouter>
     )
