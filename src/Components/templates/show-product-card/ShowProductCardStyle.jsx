@@ -22,7 +22,7 @@ export const ShowProductWrapper = styled.div`
 
         border-radius: 15px;
         width: 30%;
-        height: 550px;
+        height: 350px;
         box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
         background-color: #fff;
         padding: 20px;
@@ -115,6 +115,7 @@ export const PriceAndName = styled.div`
 export const Quantity = styled.div`
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 
     h2 {
         color: #666;
