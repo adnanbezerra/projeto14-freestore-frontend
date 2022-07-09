@@ -14,7 +14,7 @@ export default function UserScreen() {
     const [recentAquisitions, setRecentAquisitions] = useState([]);
     const navigate = useNavigate();
 
-    const verifyUser = user === undefined;
+    const verifyUser = user.token === undefined;
 
     useEffect(() => {
         if (verifyUser) navigate('/login', {replace: true});

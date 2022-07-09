@@ -9,7 +9,7 @@ import { BASE_URL, config } from "../../mock/data";
 export default function CreateProduct() {
 
     const { user } = useContext(UserContext);
-    const verifyUser = user === undefined;
+    const verifyUser = user.token === undefined;
     const navigate = useNavigate();
     const [category, setCategory] = useState("");
     const [name, setName] = useState("");
@@ -17,54 +17,69 @@ export default function CreateProduct() {
     const [price, setPrice] = useState(0);
     const [quantity, setQuantity] = useState(0);
 
+    const [imageOne, setImageOne] = useState("");
+    const [imageTwo, setImageTwo] = useState("");
+    const [imageThree, setImageThree] = useState("");
+    const [imageFour, setImageFour] = useState("");
+    const [imagesArray, setImagesArray] = useState([]);
+
     const categories = [
         {
             name: 'Esportes',
-            value: 'esportes'
+            value: 'Esportes'
         },
         {
             name: 'Roupas',
-            value: 'roupas'
+            value: 'Roupas'
         },
         {
             name: 'Móveis',
-            value: 'moveis'
+            value: 'Moveis'
         },
         {
             name: 'Cosméticos',
-            value: 'cosmeticos'
+            value: 'Cosmeticos'
         },
         {
             name: 'Eletrônicos',
-            value: 'eletronicos'
+            value: 'Eletronicos'
         },
         {
             name: 'Livros',
-            value: 'livros'
+            value: 'Livros'
         },
         {
             name: 'Brinquedos',
-            value: 'brinquedos'
+            value: 'Brinquedos'
         },
         {
             name: 'Eletrodomésticos',
-            value: 'eletrodomesticos'
+            value: 'Eletrodomesticos'
         }
     ]
 
-    // useEffect(() => {
-    //     if (verifyUser) navigate('/login', { replace: true });
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
+    useEffect(() => {
+        if (verifyUser) navigate('/login', { replace: true });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     function submitForm(e) {
         e.preventDefault();
 
+        if (validateImages()) {
+            alert("Insira links válidos para imagens!");
+            return;
+        }
+
+        const images = getImagesArray();
+
         const header = config(verifyUser ? "" : user.token, verifyUser ? "" : user.refresh)
 
-        const newProduct = { name, description, price, quantity, category }
+        const seller = verifyUser ? "" : user.name;
+
+        const newProduct = { name, seller, description, price, quantity, category, images }
         axios.post(`${BASE_URL}/sells`, newProduct, header)
-            .then( response => {
+            .then(response => {
                 alert("Produto cadastrado com sucesso!");
                 navigate("/");
             })
@@ -74,11 +89,31 @@ export default function CreateProduct() {
     }
 
     function handlePriceChange(e) {
-        if(typeof e.target.value === 'number') setPrice(e.target.value);
+        const entrance = parseFloat(e.target.value)
+        if (isNaN(entrance)) return;
+        if (typeof entrance === 'number') setPrice(entrance);
     }
 
     function handleQuantityChange(e) {
-        if(typeof e.target.value === 'number') setQuantity(e.target.value);
+        const entrance = parseFloat(e.target.value)
+        if (isNaN(entrance)) return;
+        if (entrance % 1 !== 0) return;
+        if (typeof entrance === 'number') setQuantity(entrance);
+    }
+
+    function getImagesArray() {
+        if (imageOne !== null) setImagesArray([...imagesArray, imageOne]);
+        if (imageTwo !== null) setImagesArray([...imagesArray, imageTwo]);
+        if (imageThree !== null) setImagesArray([...imagesArray, imageThree]);
+        if (imageFour !== null) setImagesArray([...imagesArray, imageFour]);
+    }
+
+    function validateImages() {
+        for (let image of imagesArray) {
+            if (!image.startsWith("http://") || !image.startsWith("https://")) return true;
+        }
+
+        return false;
     }
 
     return (
@@ -90,20 +125,31 @@ export default function CreateProduct() {
                 <Label>Descrição do item</Label>
                 <Input value={description} onChange={e => setDescription(e.target.value)} />
                 <Label>Preço</Label>
-                <Input type='number' value={price} onChange={e => handlePriceChange(e)} />
+                <Input type='number' min='0' value={price} onChange={e => handlePriceChange(e)} />
                 <Label>Quantidade de itens</Label>
-                <Input type='number' value={quantity} onChange={e => handleQuantityChange(e)} />
+                <Input type='number' min='0' step='1' value={quantity} onChange={e => handleQuantityChange(e)} />
                 <Label>Selecione a categoria</Label>
                 <SelectContainer>
                     <Select onChange={e => setCategory(e.target.value)}>
                         {categories.map(option => {
-                            <option>Que palhaçada é essa?</option>
                             return (
                                 <option value={option.value}>{option.name}</option>
                             )
                         })}
                     </Select>
                 </SelectContainer>
+
+                <Label>Insira a foto 1 (Obrigatório)</Label>
+                <Input value={imageOne} onChange={e => setImageOne(e.target.value)} />
+
+                <Label>Insira a foto 2 (Opcional)</Label>
+                <Input value={imageTwo} onChange={e => setImageTwo(e.target.value)} />
+
+                <Label>Insira a foto 3 (Opcional)</Label>
+                <Input value={imageThree} onChange={e => setImageThree(e.target.value)} />
+
+                <Label>Insira a foto 4 (Opcional)</Label>
+                <Input value={imageFour} onChange={e => setImageFour(e.target.value)} />
 
                 <Button>Vender produto!</Button>
             </Form>
@@ -134,6 +180,7 @@ const SelectContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 15px;
 `
 
 const Label = styled.p`
