@@ -78,6 +78,14 @@ export const Navbar = styled.div`
         padding: ${({ inputPadding }) => inputPadding};
         transition: all 300ms ease-in-out;
     }
+
+    h3 {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #fff;
+        cursor: pointer;
+    }
 `
 
 export const NavLink = styled(Link)`

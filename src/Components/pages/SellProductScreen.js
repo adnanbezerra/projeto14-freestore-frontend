@@ -77,7 +77,7 @@ export default function CreateProduct() {
 
         const seller = verifyUser ? "" : user.name;
 
-        const newProduct = { name, seller, description, price, quantity, category, images }
+        const newProduct = { name, seller, sellerId: user._id, description, price, quantity, category, images }
 
         try {
             await axios.post(`${BASE_URL}/new-product`, newProduct, header)

@@ -40,7 +40,6 @@ export default function UserScreen() {
                 }
             })
     }
-    console.log(recentAquisitions)
 
     function renderAquisitions() {
         return (

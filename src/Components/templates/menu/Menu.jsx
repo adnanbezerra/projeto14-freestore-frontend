@@ -3,6 +3,8 @@ import { categories } from '../../../mock/data'
 import { useNavigate } from "react-router-dom";
 import { BiSearchAlt } from 'react-icons/bi' 
 import { useState } from "react";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 export default function Menu({ setWidth, setDisplay, display, width }) {
     const navigate = useNavigate()
@@ -10,6 +12,7 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
     const [inputPadding, setInputPadding] = useState('0px')
     const [marginButton, setMarginButton] = useState('0px')
     const [search, setSearch] = useState('')
+    const { user, setUser } = useContext(UserContext)
     const searchPrevented = search === '' ? 'all' : search
 
     function showAndSearch() {
@@ -20,6 +23,12 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
         if(search !== '') {
             navigate(`/products/${search}`)
         }
+    }
+
+    function logout() {
+        localStorage.removeItem('user')
+        setUser({})
+        navigate('/')
     }
 
     return (
@@ -47,7 +56,7 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
                         <NavLink to="/user">Minha Conta</NavLink>
                         <NavLink to="/sell">Vender Produto</NavLink>
                         <NavLink to="/cart">Carrinho</NavLink>
-                        <NavLink to="/login">Logout</NavLink>
+                        {user.token !== undefined ? <h3 onClick={logout}>Logout</h3> : ''}
                     </section>
                 </div>
             </Navbar>
