@@ -8,18 +8,23 @@ import ProductCard from "../../templates/product-card/ProductCard"
 import { ProductsWrapper } from "./ProductsStyle"
 
 export default function ProductsScreen() {
-    const { name } = useParams()
+    const { name, seller, id } = useParams()
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        getProducts(setProducts, '', name)
+        if(seller && id) {
+            getProducts(setProducts, '', '', id)
+        } else {
+            getProducts(setProducts, '', name)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name])
 
     return (
         <Layout>
             <ProductsWrapper>
-                <PageTitle title="Pesquisa" subtitle={name === 'all' ? 'Todos' : name} />
+                <PageTitle title={seller ? 'Produtos de' : 'Pesquisa'} subtitle={name ? name === 'all' ? 'Todos' : name : seller} />
                 <div className="products">
                     {products.map(product => 
                         <ProductCard key={product._id} 
