@@ -78,7 +78,7 @@ export default function CreateProduct() {
         const seller = verifyUser ? "" : user.name;
 
         const newProduct = { name, seller, description, price, quantity, category, images }
-        axios.post(`${BASE_URL}/sells`, newProduct, header)
+        axios.post(`${BASE_URL}/new-product`, newProduct, header)
             .then(response => {
                 alert("Produto cadastrado com sucesso!");
                 navigate("/");

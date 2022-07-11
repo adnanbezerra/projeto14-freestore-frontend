@@ -24,7 +24,8 @@ export default function UserScreen() {
 
     function getSells() {
         const headers = config(user.token, user.refresh)
-        axios.get(`${BASE_URL}/sells`, headers)
+        const id = user.id;
+        axios.get(`${BASE_URL}/sells`, id, headers)
             .then(response => {
                 setRecentAquisitions(response.data);
             })
