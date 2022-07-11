@@ -17,48 +17,55 @@ export default function UserScreen() {
     const verifyUser = user.token === undefined;
 
     useEffect(() => {
-        if (verifyUser) navigate('/login', {replace: true});
-        else getSells(); 
+        if (verifyUser) navigate('/login', { replace: true });
+        else getSells();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function getSells() {
-        const headers = config(user.token, user.refreshToken)
-        axios.get(`${BASE_URL}/sells`, headers)
+        const headers = config(user.token, user.refresh)
+        const id = user.id;
+        axios.get(`${BASE_URL}/sells`, id, headers)
             .then(response => {
                 setRecentAquisitions(response.data);
             })
             .catch(error => {
                 console.log(error);
-                if(error.response.data.newToken) {
+                if (error.response.data.newToken) {
                     let userLocal = JSON.parse(localStorage.getItem('user'))
                     userLocal.token = error.response.data.newToken
 
                     localStorage.setItem('user', JSON.stringify(userLocal))
-                    setUser({...userLocal})
+                    setUser({ ...userLocal })
                     window.location.reload()
                 }
             })
     }
-    console.log(recentAquisitions)
 
     function renderAquisitions() {
         return (
-            recentAquisitions[0].productsOnCart.map(item => {
-                return (
-                    <RecentContainer>
-                        <PictureDiv>
-                            <img src={item.images[0]} alt="" />
-                        </PictureDiv>
-                        <RecentTexts>
-                            <TitleText>{item.name}</TitleText>
-                            <DescriptionText>{item.description}</DescriptionText>
-                            <ValueText>R$ {item.price}</ValueText>
-                        </RecentTexts>
-                        <Button onClick={() => navigate(`/product/${item.category}/${item._id}`)}>Comprar novamente</Button>
-                    </RecentContainer>
-                )
-            })
+            recentAquisitions.map(cart =>
+                cart.productsOnCart.map(item => { return getCartCard(item) })
+            )
+        )
+    }
+
+    function getCartCard(item) {
+        return (
+            <RecentContainer>
+                <DayInfo>{item.date}</DayInfo>
+                <CardInfo>
+                    <PictureDiv>
+                        <img src={item.images[0]} alt="" />
+                    </PictureDiv>
+                    <RecentTexts>
+                        <TitleText>{item.name}</TitleText>
+                        <DescriptionText>{item.description}</DescriptionText>
+                        <ValueText>R$ {item.price}</ValueText>
+                    </RecentTexts>
+                    <Button onClick={() => navigate(`/product/${item.category}/${item._id}`)}>Comprar novamente</Button>
+                </CardInfo>
+            </RecentContainer>
         )
     }
 
@@ -67,10 +74,22 @@ export default function UserScreen() {
             <Banner><p>Olá, <UserName>{verifyUser ? "" : user.name}</UserName>!</p> <UserConfig><img src={verifyUser ? "" : user.profilePicture} alt="" /> <Edit onClick={() => navigate('/editUser')}><FiEdit2></FiEdit2></Edit>  </UserConfig></Banner>
             <Recents>Compras recentes</Recents>
             {recentAquisitions.length > 0 ? <CardContainer>{renderAquisitions()}</CardContainer> : <NoRecent>Nenhuma compra feita ainda!</NoRecent>}
-            {/* <CardContainer>{renderAquisitions()}</CardContainer> */}
         </Layout>
     )
 }
+
+const DayInfo = styled.div`
+    border: 1px solid #bdbdbd;
+    width: 100%;
+    align-items: center;
+    color: #e91e63;
+    font-size: 20px;
+`
+
+const CardInfo = styled.div`
+    display: flex;
+    width: 100%;
+`
 
 const Button = styled.button`
     margin-right: 10px;
@@ -131,6 +150,7 @@ const RecentContainer = styled.div`
     align-items: center;
     padding-left: 10px;
     box-sizing: border-box;
+    flex-direction: column;
 
     background-color: #f5f5f5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
