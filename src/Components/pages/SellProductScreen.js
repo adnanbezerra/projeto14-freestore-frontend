@@ -66,12 +66,12 @@ export default function CreateProduct() {
     async function submitForm(e) {
         e.preventDefault();
 
+        const images = getImagesArray();
+
         if (validateImages()) {
             alert("Insira links válidos para imagens!");
             return;
         }
-
-        const images = getImagesArray();
 
         const header = config(verifyUser ? "" : user.token, verifyUser ? "" : user.refreshToken)
 
