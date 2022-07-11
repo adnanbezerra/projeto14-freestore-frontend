@@ -12,3 +12,7 @@ it allows you to sell and buy basically whatever you want.
 - Styled Components
 - DayJS
 - And plenty more!
+
+## Authors
+- [Adnan Medeiros Bezera](https://github.com/adnanbezerra)
+- [Daniel Lucas Ederli](https://github.com/DanielL29)
