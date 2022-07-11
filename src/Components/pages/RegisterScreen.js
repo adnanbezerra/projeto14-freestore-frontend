@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
 import logo from '../assets/images/logo.png';
+import { BASE_URL } from '../../mock/data';
 
 export default function RegisterScreen() {
 
@@ -32,7 +33,7 @@ export default function RegisterScreen() {
 
         const login = { email, password, profilePicture, name }
 
-        axios.post('http://localhost:5000/register', login)
+        axios.post(`${BASE_URL}/register`, login)
             .then(response => {
                 navigate('/')
                 setUser(response.data);
@@ -59,7 +60,7 @@ export default function RegisterScreen() {
     }
 
     function getButton() {
-        return (disable ? <Button disabled={true}>Login</Button> : <Button disabled={false}>Login</Button>)
+        return (disable ? <Button disabled={true}>Registrar-se</Button> : <Button disabled={false}>Registrar-se</Button>)
     }
 
     return (

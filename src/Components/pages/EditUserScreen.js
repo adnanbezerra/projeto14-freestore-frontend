@@ -18,7 +18,7 @@ export default function EditUserScreen() {
     const { user, setUser } = useContext(UserContext);
     const verifyUser = user.token === undefined;
 
-    const [username, setUsername] = useState(verifyUser ? "" : user.username);
+    const [username, setUsername] = useState(verifyUser ? "" : user.name);
     const [email, setEmail] = useState(verifyUser ? "" : user.email);
     const [profilePicture, setProfilePicture] = useState(verifyUser ? "" : user.profilePicture);
     const [password, setPassword] = useState("");
@@ -32,22 +32,31 @@ export default function EditUserScreen() {
 
     async function submitForm(event) {
         event.preventDefault();
-        const newInfos = { userInfo: { _id: user._id, username, email, profilePicture }, password }
+        const newInfos = { userInfo: { _id: user._id, name: username, email, profilePicture }, password }
 
-        if (!profilePicture.startsWith("http://") || !profilePicture.startsWith("https://")) {
+        if (!profilePicture.startsWith("http://") && !profilePicture.startsWith("https://")) {
             alert("Foto inválida!");
             return;
         }
 
-        const headers = config(user.token, user.refresh);
+        const headers = config(user.token, user.refreshToken);
 
         try {
             await axios.put(`${BASE_URL}/register`, newInfos, headers)
 
+            let userLocal = JSON.parse(localStorage.getItem("user"))
+            userLocal.name = username
+            userLocal.profilePicture = profilePicture
+            userLocal.email = email
+
+            localStorage.setItem("user", JSON.stringify(userLocal))
+
+            setUser(userLocal)
+
             alert("Atualização feita com sucesso!");
             navigate('/');
         } catch (error) {
-            console.error(error);
+            console.log(error);
             if (error.response.data.newToken) {
                 let userLocal = JSON.parse(localStorage.getItem('user'))
                 userLocal.token = error.response.data.newToken

@@ -23,9 +23,8 @@ export default function UserScreen() {
     }, [])
 
     function getSells() {
-        const headers = config(user.token, user.refresh)
-        const id = user.id;
-        axios.get(`${BASE_URL}/sells`, id, headers)
+        const headers = config(user.token, user.refreshToken)
+        axios.get(`${BASE_URL}/sells`, headers)
             .then(response => {
                 setRecentAquisitions(response.data);
             })
@@ -45,7 +44,10 @@ export default function UserScreen() {
     function renderAquisitions() {
         return (
             recentAquisitions.map(cart =>
-                cart.productsOnCart.map(item => { return getCartCard(item) })
+                <>
+                    <DayInfo>{cart.date}</DayInfo>
+                    {cart.productsOnCart.map(item => { return getCartCard(item) })}
+                </>
             )
         )
     }
@@ -53,7 +55,6 @@ export default function UserScreen() {
     function getCartCard(item) {
         return (
             <RecentContainer>
-                <DayInfo>{item.date}</DayInfo>
                 <CardInfo>
                     <PictureDiv>
                         <img src={item.images[0]} alt="" />
@@ -129,6 +130,7 @@ const CardContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     width: 100%;
 `
 
