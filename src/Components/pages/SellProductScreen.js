@@ -66,7 +66,8 @@ export default function CreateProduct() {
     async function submitForm(e) {
         e.preventDefault();
 
-        const images = getImagesArray();
+        getImagesArray();
+        const images = [...imagesArray];
 
         if (validateImages()) {
             alert("Insira links válidos para imagens!");
@@ -81,7 +82,7 @@ export default function CreateProduct() {
 
         try {
             await axios.post(`${BASE_URL}/new-product`, newProduct, header)
-            
+
             alert("Produto cadastrado com sucesso!");
             navigate("/");
         } catch (error) {
@@ -130,13 +131,13 @@ export default function CreateProduct() {
             <Form onSubmit={submitForm}>
                 <Title>Cadastre o seu produto para venda!</Title>
                 <Label>Nome do produto</Label>
-                <Input value={name} onChange={e => setName(e.target.value)} />
+                <Input value={name} onChange={e => setName(e.target.value)} required />
                 <Label>Descrição do item</Label>
-                <Input value={description} onChange={e => setDescription(e.target.value)} />
+                <Input value={description} onChange={e => setDescription(e.target.value)} required />
                 <Label>Preço</Label>
-                <Input type='number' min='0' step='0.01' value={price} onChange={e => handlePriceChange(e)} />
+                <Input type='number' min='0' step='0.01' value={price} onChange={e => handlePriceChange(e)} required />
                 <Label>Quantidade de itens</Label>
-                <Input type='number' min='0' step='1' value={quantity} onChange={e => handleQuantityChange(e)} />
+                <Input type='number' min='0' step='1' value={quantity} onChange={e => handleQuantityChange(e)} required />
                 <Label>Selecione a categoria</Label>
                 <SelectContainer>
                     <Select onChange={e => setCategory(e.target.value)}>
@@ -149,7 +150,7 @@ export default function CreateProduct() {
                 </SelectContainer>
 
                 <Label>Insira a foto 1 (Obrigatório)</Label>
-                <Input value={imageOne} onChange={e => setImageOne(e.target.value)} />
+                <Input value={imageOne} onChange={e => setImageOne(e.target.value)} required />
 
                 <Label>Insira a foto 2 (Opcional)</Label>
                 <Input value={imageTwo} onChange={e => setImageTwo(e.target.value)} />
