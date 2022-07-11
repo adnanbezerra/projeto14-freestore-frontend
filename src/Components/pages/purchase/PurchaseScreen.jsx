@@ -20,7 +20,7 @@ export default function PurchaseScreen() {
     const [isFinalize, setIsFinalize] = useState(false)
     const [loading, setLoading] = useState(false)
     const [paymentMethod, setPaymentMethod] = useState('')
-    const { user } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
     const [payment, setPayment] = useState([
         { method: 'Cartão de Crédito', choose: false, icon: <GiSwipeCard className="icon" /> },
         { method: 'Cartão de Débito', choose: false, icon: <GiSwipeCard className="icon" /> },
@@ -62,6 +62,16 @@ export default function PurchaseScreen() {
             setTimeout(() => navigate('/'), 2500)
         } catch (err) {
             console.log(err)
+
+            if (err.response.data.newToken) {
+                let userLocal = JSON.parse(localStorage.getItem('user'))
+                userLocal.token = err.response.data.newToken
+    
+                localStorage.setItem('user', JSON.stringify(userLocal))
+                setUser({ ...userLocal })
+                await buyProducts()
+            }
+
             alert('falha')
             setLoading(false)
         }

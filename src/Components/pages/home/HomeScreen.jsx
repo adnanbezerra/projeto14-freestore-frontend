@@ -42,7 +42,7 @@ export default function HomeScreen() {
                     <div>
                         {products.map(product => 
                             <ProductCard key={product._id} backgroundImg={product.images[0]} name={product.name} price={product.price}
-                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} sendToCart={() => navigate('/categories')} />
+                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} />
                         )}
                     </div>
                 </div>

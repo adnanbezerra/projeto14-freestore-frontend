@@ -15,7 +15,7 @@ export default function EditUserScreen() {
     //     email: "babydoido@gmail.com",
     //     profilePicture: "https://i.pinimg.com/222x/c1/e2/31/c1e23101b8ae4e6536a6326b14dea06b.jpg"
     // }
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const verifyUser = user.token === undefined;
 
     const [username, setUsername] = useState(verifyUser ? "" : user.username);
@@ -30,26 +30,35 @@ export default function EditUserScreen() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    function submitForm(event) {
+    async function submitForm(event) {
         event.preventDefault();
-        const newInfos = {userInfo: { _id: user._id, username, email, profilePicture }, password}
+        const newInfos = { userInfo: { _id: user._id, username, email, profilePicture }, password }
 
-        if(!profilePicture.startsWith("http://") || !profilePicture.startsWith("https://")) {
+        if (!profilePicture.startsWith("http://") || !profilePicture.startsWith("https://")) {
             alert("Foto inválida!");
             return;
         }
 
         const headers = config(user.token, user.refresh);
 
-        axios.put(`${BASE_URL}/register`, newInfos, headers) 
-            .then( response => {
-                alert("Atualização feita com sucesso!");
-                navigate('/');
-            })
-            .catch( error => { 
-                alert("Erro ao atualizar informações!");
-                console.error(error);
-            })
+        try {
+            await axios.put(`${BASE_URL}/register`, newInfos, headers)
+
+            alert("Atualização feita com sucesso!");
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+            if (error.response.data.newToken) {
+                let userLocal = JSON.parse(localStorage.getItem('user'))
+                userLocal.token = error.response.data.newToken
+
+                localStorage.setItem('user', JSON.stringify(userLocal))
+                setUser({ ...userLocal })
+                await submitForm(event)
+            }
+
+            alert("Erro ao atualizar informações!");
+        }
     }
 
     return (
