@@ -1,7 +1,8 @@
 const products = [
     { 
         name: 'Tenis Adidas Branco', 
-        seller: 'Lucas Tavares', 
+        seller: 'dan', 
+        sellerId: "62c75677345ac6ee4f2eb056",
         description: 'Tenis Adidas Branco com tiras preta, feito com couro, produto original lacrado',
         images: [
             'https://cdnv2.moovin.com.br/margilcalcados/imagens/produtos/det/532a69730cd2c60ae9f4b5e6e009be9d.jpg',
@@ -14,7 +15,8 @@ const products = [
     },
     { 
         name: 'Bola de futebol', 
-        seller: 'Lucas Tavares', 
+        seller: 'dan', 
+        sellerId: "62c75677345ac6ee4f2eb056",
         description: 'Bola de futebol preta e branca clássica, duravel e barata!',
         images: [
             'https://uploads.estoquenow.com.br/timthumb.php?src=https://uploads.estoquenow.com.br/items/60/20190219_143139697_iOS_190c2058787d69b87c85db2b66a4bbd8.jpg',
@@ -27,7 +29,8 @@ const products = [
     },
     { 
         name: 'PC Gamer', 
-        seller: 'Lucas Tavares', 
+        seller: 'dan', 
+        sellerId: "62c75677345ac6ee4f2eb056",
         description: 'PC Gamer ultima geração vem com intel i9 12° geração, 64 gb ram, placa de video RTX 3080, SSD 2 TB, fonte 800w, placa mãe Z590',
         images: [
             'https://images.tcdn.com.br/img/img_prod/313499/gabinete_gamer_k_mex_micro_ranger_lateral_em_vidro_preto_sem_fonte_sem_fan_cg_01pq_11495_2_20201201112205.jpg',

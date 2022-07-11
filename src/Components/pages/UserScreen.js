@@ -9,9 +9,9 @@ import { BASE_URL, config } from "../../mock/data";
 
 export default function UserScreen() {
 
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
-    const [recentAquisitions, setRecentAquisitions] = useState([]);
+    const [recentAquisitions, setRecentAquisitions] = useState({});
     const navigate = useNavigate();
 
     const verifyUser = user.token === undefined;
@@ -29,25 +29,34 @@ export default function UserScreen() {
             .then(response => {
                 setRecentAquisitions(response.data);
             })
-            .error(error => {
+            .catch(error => {
                 console.log(error);
+                if(error.response.data.newToken) {
+                    let userLocal = JSON.parse(localStorage.getItem('user'))
+                    userLocal.token = error.response.data.newToken
+
+                    localStorage.setItem('user', JSON.stringify(userLocal))
+                    setUser({...userLocal})
+                    window.location.reload()
+                }
             })
     }
+    console.log(recentAquisitions)
 
     function renderAquisitions() {
         return (
-            recentAquisitions.map(item => {
+            recentAquisitions[0].productsOnCart.map(item => {
                 return (
                     <RecentContainer>
                         <PictureDiv>
-                            <img src={item.picture} alt="" />
+                            <img src={item.images[0]} alt="" />
                         </PictureDiv>
                         <RecentTexts>
                             <TitleText>{item.name}</TitleText>
                             <DescriptionText>{item.description}</DescriptionText>
                             <ValueText>R$ {item.price}</ValueText>
                         </RecentTexts>
-                        <Button onClick={() => navigate(`navigate(/product/${item.category}/${item._id}`)}>Comprar novamente</Button>
+                        <Button onClick={() => navigate(`/product/${item.category}/${item._id}`)}>Comprar novamente</Button>
                     </RecentContainer>
                 )
             })
@@ -56,9 +65,9 @@ export default function UserScreen() {
 
     return (
         <Layout>
-            <Banner><p>Olá, <UserName>{verifyUser ? "" : user.username}</UserName>!</p> <UserConfig><img src={verifyUser ? "" : user.profilePicture} alt="" /> <Edit onClick={() => navigate('/edit')}><FiEdit2></FiEdit2></Edit>  </UserConfig></Banner>
+            <Banner><p>Olá, <UserName>{verifyUser ? "" : user.name}</UserName>!</p> <UserConfig><img src={verifyUser ? "" : user.profilePicture} alt="" /> <Edit onClick={() => navigate('/editUser')}><FiEdit2></FiEdit2></Edit>  </UserConfig></Banner>
             <Recents>Compras recentes</Recents>
-            {recentAquisitions ? <CardContainer>{renderAquisitions()}</CardContainer> : <NoRecent>Nenhuma compra feita ainda!</NoRecent>}
+            {recentAquisitions.length > 0 ? <CardContainer>{renderAquisitions()}</CardContainer> : <NoRecent>Nenhuma compra feita ainda!</NoRecent>}
             {/* <CardContainer>{renderAquisitions()}</CardContainer> */}
         </Layout>
     )

@@ -8,7 +8,7 @@ import { BASE_URL, config } from "../../mock/data";
 
 export default function CreateProduct() {
 
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const verifyUser = user.token === undefined;
     const navigate = useNavigate();
     const [category, setCategory] = useState("");
@@ -63,7 +63,7 @@ export default function CreateProduct() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    function submitForm(e) {
+    async function submitForm(e) {
         e.preventDefault();
 
         if (validateImages()) {
@@ -73,19 +73,28 @@ export default function CreateProduct() {
 
         const images = getImagesArray();
 
-        const header = config(verifyUser ? "" : user.token, verifyUser ? "" : user.refresh)
+        const header = config(verifyUser ? "" : user.token, verifyUser ? "" : user.refreshToken)
 
         const seller = verifyUser ? "" : user.name;
 
         const newProduct = { name, seller, description, price, quantity, category, images }
-        axios.post(`${BASE_URL}/new-product`, newProduct, header)
-            .then(response => {
-                alert("Produto cadastrado com sucesso!");
-                navigate("/");
-            })
-            .catch(error => {
-                console.error(error);
-            })
+
+        try {
+            await axios.post(`${BASE_URL}/new-product`, newProduct, header)
+            
+            alert("Produto cadastrado com sucesso!");
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+            if (error.response.data.newToken) {
+                let userLocal = JSON.parse(localStorage.getItem('user'))
+                userLocal.token = error.response.data.newToken
+
+                localStorage.setItem('user', JSON.stringify(userLocal))
+                setUser({ ...userLocal })
+                await submitForm(e)
+            }
+        }
     }
 
     function handlePriceChange(e) {

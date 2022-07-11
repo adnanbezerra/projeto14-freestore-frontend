@@ -9,6 +9,7 @@ import Product from './pages/product/Product';
 import PurchaseScreen from './pages/purchase/PurchaseScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import UserScreen from './pages/UserScreen';
+import ProductsScreen from './pages/products/ProductsScreen';
 
 export default function Router() {
     return (
@@ -25,6 +26,8 @@ export default function Router() {
                 <Route path="/cart" element={<CartScreen />} /> 
                 <Route path="/finalize-purchase" element={<PurchaseScreen />} />
                 <Route path="/sell" element={<CreateProduct />} />
+                <Route path="/products/:name" element={<ProductsScreen />} />
+                <Route path="/products/:seller/:id" element={<ProductsScreen />} />
             </Routes>
         </BrowserRouter>
     )
