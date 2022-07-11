@@ -111,10 +111,10 @@ export default function CreateProduct() {
     }
 
     function getImagesArray() {
-        if (imageOne !== null) setImagesArray([...imagesArray, imageOne]);
-        if (imageTwo !== null) setImagesArray([...imagesArray, imageTwo]);
-        if (imageThree !== null) setImagesArray([...imagesArray, imageThree]);
-        if (imageFour !== null) setImagesArray([...imagesArray, imageFour]);
+        if (imageOne !== "") setImagesArray([...imagesArray, imageOne]);
+        if (imageTwo !== "") setImagesArray([...imagesArray, imageTwo]);
+        if (imageThree !== "") setImagesArray([...imagesArray, imageThree]);
+        if (imageFour !== "") setImagesArray([...imagesArray, imageFour]);
     }
 
     function validateImages() {
