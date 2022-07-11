@@ -17,8 +17,7 @@ export default function CategoriesScreen() {
         if(category !== undefined) {
             getProducts(setProductsByCategory, category)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [category])
 
     return (
         <Layout>
@@ -28,7 +27,7 @@ export default function CategoriesScreen() {
                     <div className="products-category">
                         {productsByCategory.map(product =>  
                             <ProductCard key={product._id} backgroundImg={product.images[0]} name={product.name} price={product.price}
-                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} sendToCart={() => navigate('/categories')} />
+                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} />
                         )}
                     </div>
                 ) : (

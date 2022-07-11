@@ -15,7 +15,7 @@ export default function CartScreen() {
     const [userId, setUserId] = useState('')
     const [total, setTotal] = useState(0)
     const isEmpty = productsOnCart.length > 0
-    const { user } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
 
     useEffect(() => {
         getCartProducts()
@@ -43,11 +43,11 @@ export default function CartScreen() {
         let productUpdate = productData.data
         productUpdate.quantity += quantity
 
-        if(user.token === undefined && localStorage.getItem('cartLocal') !== null) {
+        if (user.token === undefined && localStorage.getItem('cartLocal') !== null) {
             await axios.put(`${BASE_URL}/products/${productUpdate._id}`, productUpdate, config(user.token, user.refreshToken))
 
-            for(let i = 0; i < productsOnCart.length; i++) {
-                if(productsOnCart[i]._id === id) {
+            for (let i = 0; i < productsOnCart.length; i++) {
+                if (productsOnCart[i]._id === id) {
                     productsOnCart.splice(i, 1)
                 }
             }
@@ -56,32 +56,43 @@ export default function CartScreen() {
             totalCart(productsOnCart)
             setProductsOnCart([...productsOnCart])
         } else {
-            await axios.put(`${BASE_URL}/products/${productUpdate._id}`, productUpdate, config(user.token, user.refreshToken))
-            await axios.delete(`${BASE_URL}/carts/${cartId}/${id}`, config(user.token, user.refreshToken))
-
-            for(let i = 0; i < productsOnCart.length; i++) {
-                if(productsOnCart[i]._id === id) {
-                    productsOnCart.splice(i, 1)
+            try {
+                await axios.put(`${BASE_URL}/products/${productUpdate._id}`, productUpdate, config(user.token, user.refreshToken))
+                await axios.delete(`${BASE_URL}/carts/${cartId}/${id}`, config(user.token, user.refreshToken))
+    
+                for (let i = 0; i < productsOnCart.length; i++) {
+                    if (productsOnCart[i]._id === id) {
+                        productsOnCart.splice(i, 1)
+                    }
+                }
+    
+                totalCart(productsOnCart)
+                setProductsOnCart([...productsOnCart])
+            } catch (error) {
+                if (error.response.data.newToken) {
+                    let userLocal = JSON.parse(localStorage.getItem('user'))
+                    userLocal.token = error.response.data.newToken
+    
+                    localStorage.setItem('user', JSON.stringify(userLocal))
+                    setUser({ ...userLocal })
+                    await deleteCartProduct(id, quantity)
                 }
             }
-
-            totalCart(productsOnCart)
-            setProductsOnCart([...productsOnCart])
         }
     }
 
     function totalCart(cart) {
         let total = 0
 
-        for(let i = 0; i < cart.length; i++) {
+        for (let i = 0; i < cart.length; i++) {
             total += (cart[i].price * cart[i].quantity)
         }
 
         setTotal(total.toFixed(2))
-    }   
+    }
 
     function finalizePurchase() {
-        if(localStorage.getItem('cartLocal') !== null) {
+        if (localStorage.getItem('cartLocal') !== null) {
             navigate('/login')
         } else {
             navigate('/finalize-purchase', { state: { userId, productsOnCart, total } })
@@ -98,7 +109,7 @@ export default function CartScreen() {
                             {productsOnCart.map(product =>
                                 <CartCard key={product._id}
                                     category={product.category} img={product.images[0]} name={product.name} price={product.price} quantity={product.quantity}
-                                    deleteCartProduct={() => deleteCartProduct(product._id, product.quantity)} 
+                                    deleteCartProduct={() => deleteCartProduct(product._id, product.quantity)}
                                     productPage={() => navigate(`/product/${product.category}/${product._id}`)} />
                             )}
                         </div>

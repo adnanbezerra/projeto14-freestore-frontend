@@ -28,18 +28,29 @@ export function UserProvider({ children }) {
 
 
     async function insertCartLocal(cartLocal, token, refreshToken) {
-        const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
+        try {
+            const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
+    
+            if(cartData.data === null) {
+                await axios.post(`${BASE_URL}/carts`, { cartLocal }, config(token, refreshToken))
+    
+                localStorage.removeItem('cartLocal')
+            } else {
+                // FAZER A PARTE DE SE O USUARIO TIVER ITENS NO CARRINHO E INSERIR ITEMS DESLOGADO ASSIM PEGAR OS ITENS DO LOCALSTORAGE
+                // const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
+                // await axios.put(`${BASE_URL}/carts/${cartData._id}`, { cartLocal }, config(token, refreshToken))
+    
+                localStorage.removeItem('cartLocal')
+            }
+        } catch (error) {
+            if(error.response.data.newToken) {
+                let userLocal = JSON.parse(localStorage.getItem('user'))
+                userLocal.token = error.response.data.newToken
 
-        if(cartData.data === null) {
-            await axios.post(`${BASE_URL}/carts`, { cartLocal }, config(token, refreshToken))
-
-            localStorage.removeItem('cartLocal')
-        } else {
-            // FAZER A PARTE DE SE O USUARIO TIVER ITENS NO CARRINHO E INSERIR ITEMS DESLOGADO ASSIM PEGAR OS ITENS DO LOCALSTORAGE
-            // const cartData = await axios.get(`${BASE_URL}/carts`, config(token, refreshToken))
-            // await axios.put(`${BASE_URL}/carts/${cartData._id}`, { cartLocal }, config(token, refreshToken))
-
-            localStorage.removeItem('cartLocal')
+                localStorage.setItem('user', JSON.stringify(userLocal))
+                setUser({...userLocal})
+                window.location.reload()
+            }
         }
     }
 

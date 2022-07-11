@@ -29,7 +29,7 @@ export const Navbar = styled.div`
     transition: all 400ms ease-in-out;
 
     .navbar {
-        margin-top: 64px;
+        margin-top: 35px;
         margin-left: 25px;
     }
 
@@ -41,6 +41,42 @@ export const Navbar = styled.div`
 
     .categories {
         cursor: pointer;
+    }
+    
+    button {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 100%;
+        color: #fff;
+        background-color: #666;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        transition: all 200ms ease-in-out;
+        margin-left: ${({ marginButton }) => marginButton};
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    .navbar > div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    input {
+        height: 35px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+        font-size: 14px;
+        width: ${({ inputWidth }) => inputWidth};
+        padding: ${({ inputPadding }) => inputPadding};
+        transition: all 300ms ease-in-out;
     }
 `
 
