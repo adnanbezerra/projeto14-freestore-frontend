@@ -26,7 +26,7 @@ export default function TelaLogin() {
         event.preventDefault();
         const login = { email, password }
 
-        axios.post('http://localhost:5000/login', login)
+        axios.post(`${BASE_URL}/login`, login)
             .then(response => {
                 navigate('/')
                 setUser(response.data);
