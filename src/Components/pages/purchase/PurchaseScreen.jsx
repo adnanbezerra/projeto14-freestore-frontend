@@ -59,7 +59,10 @@ export default function PurchaseScreen() {
             setLoading(false)
             setIsFinalize(true)
 
-            setTimeout(() => navigate('/'), 2500)
+            setTimeout(() => { 
+                alert(`Email de compra finalizada enviado para o email ${user.email}!`)
+                navigate('/') 
+            }, 2500)
         } catch (err) {
             console.log(err)
 

@@ -84,7 +84,7 @@ export default function Product() {
 
                     localStorage.setItem('user', JSON.stringify(userLocal))
                     setUser({ ...userLocal })
-                    await insertToCart()
+                    window.location.reload()
                 }
             }
         }
