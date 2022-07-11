@@ -12,7 +12,7 @@ import books from '../Components/assets/images/category-books.jpg'
 import toys from '../Components/assets/images/category-toys.jpg'
 import appliances from '../Components/assets/images/category-appliances.jpg'
 
-const BASE_URL = 'http://localhost:5000'
+const BASE_URL = 'https://freestore-project.herokuapp.com'
 
 const config = (token, refresh) => {
     return {
