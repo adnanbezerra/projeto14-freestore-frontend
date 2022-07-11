@@ -11,7 +11,7 @@ export default function CreateProduct() {
     const { user, setUser } = useContext(UserContext);
     const verifyUser = user.token === undefined;
     const navigate = useNavigate();
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("Esportes");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
@@ -66,18 +66,22 @@ export default function CreateProduct() {
     async function submitForm(e) {
         e.preventDefault();
 
-        const images = getImagesArray();
+        let images = [imageOne, imageTwo, imageThree, imageFour];
+        let finalImages = []
 
-        if (validateImages()) {
-            alert("Insira links válidos para imagens!");
-            return;
+        for(let i = 0; i < images.length; i++) {
+            if (images[i].startsWith('https://')) {
+                finalImages.push(images[i])  
+            } else if(images[i] !== '' && !images[i].startsWith('https://')) {
+                return alert('insira uma url de imagem valida')
+            }
         }
 
         const header = config(verifyUser ? "" : user.token, verifyUser ? "" : user.refreshToken)
 
         const seller = verifyUser ? "" : user.name;
 
-        const newProduct = { name, seller, sellerId: user._id, description, price, quantity, category, images }
+        const newProduct = { name, seller, sellerId: user._id, description, price, quantity, category, images: finalImages }
 
         try {
             await axios.post(`${BASE_URL}/new-product`, newProduct, header)
@@ -110,33 +114,18 @@ export default function CreateProduct() {
         if (typeof entrance === 'number') setQuantity(entrance);
     }
 
-    function getImagesArray() {
-        if (imageOne !== "") setImagesArray([...imagesArray, imageOne]);
-        if (imageTwo !== "") setImagesArray([...imagesArray, imageTwo]);
-        if (imageThree !== "") setImagesArray([...imagesArray, imageThree]);
-        if (imageFour !== "") setImagesArray([...imagesArray, imageFour]);
-    }
-
-    function validateImages() {
-        for (let image of imagesArray) {
-            if (!image.startsWith("http://") && !image.startsWith("https://")) return true;
-        }
-
-        return false;
-    }
-
     return (
         <Layout>
             <Form onSubmit={submitForm}>
                 <Title>Cadastre o seu produto para venda!</Title>
                 <Label>Nome do produto</Label>
-                <Input value={name} onChange={e => setName(e.target.value)} />
+                <Input value={name} onChange={e => setName(e.target.value)} required />
                 <Label>Descrição do item</Label>
-                <Input value={description} onChange={e => setDescription(e.target.value)} />
+                <Input value={description} onChange={e => setDescription(e.target.value)} required />
                 <Label>Preço</Label>
-                <Input type='number' min='0' step='0.01' value={price} onChange={e => handlePriceChange(e)} />
+                <Input type='number' min='0' step='0.01' value={price} onChange={e => handlePriceChange(e)} required />
                 <Label>Quantidade de itens</Label>
-                <Input type='number' min='0' step='1' value={quantity} onChange={e => handleQuantityChange(e)} />
+                <Input type='number' min='0' step='1' value={quantity} onChange={e => handleQuantityChange(e)} required />
                 <Label>Selecione a categoria</Label>
                 <SelectContainer>
                     <Select onChange={e => setCategory(e.target.value)}>
@@ -149,7 +138,7 @@ export default function CreateProduct() {
                 </SelectContainer>
 
                 <Label>Insira a foto 1 (Obrigatório)</Label>
-                <Input value={imageOne} onChange={e => setImageOne(e.target.value)} />
+                <Input value={imageOne} onChange={e => setImageOne(e.target.value)} required />
 
                 <Label>Insira a foto 2 (Opcional)</Label>
                 <Input value={imageTwo} onChange={e => setImageTwo(e.target.value)} />
