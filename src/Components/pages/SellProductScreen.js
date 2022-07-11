@@ -119,7 +119,7 @@ export default function CreateProduct() {
 
     function validateImages() {
         for (let image of imagesArray) {
-            if (!image.startsWith("http://") || !image.startsWith("https://")) return true;
+            if (!image.startsWith("http://") && !image.startsWith("https://")) return true;
         }
 
         return false;
@@ -134,7 +134,7 @@ export default function CreateProduct() {
                 <Label>Descrição do item</Label>
                 <Input value={description} onChange={e => setDescription(e.target.value)} />
                 <Label>Preço</Label>
-                <Input type='number' min='0' value={price} onChange={e => handlePriceChange(e)} />
+                <Input type='number' min='0' step='0.01' value={price} onChange={e => handlePriceChange(e)} />
                 <Label>Quantidade de itens</Label>
                 <Input type='number' min='0' step='1' value={quantity} onChange={e => handleQuantityChange(e)} />
                 <Label>Selecione a categoria</Label>
