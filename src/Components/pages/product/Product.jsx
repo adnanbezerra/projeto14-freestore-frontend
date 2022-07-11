@@ -22,7 +22,8 @@ export default function Product() {
         getProducts(setProducts, category)
         getProduct(setProduct, id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [id])
+
 
     async function insertToCart() {
         if (quantity === 0) return alert('precisa colocar pelo menos 1 quantidade do produto')
@@ -111,7 +112,7 @@ export default function Product() {
                     if (product._id !== id) {
                         return (
                             <ProductCard key={product._id} backgroundImg={product.images[0]} name={product.name} price={product.price}
-                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} sendToCart={() => navigate('/categories')} />
+                                showProduct={() => navigate(`/product/${product.category}/${product._id}`)} />
                         )
                     }
                     return ''
