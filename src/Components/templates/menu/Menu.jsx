@@ -1,7 +1,7 @@
 import { MenuWrapper, Navbar, NavLink } from "./MenuStyle"
 import { categories } from '../../../mock/data'
 import { useNavigate } from "react-router-dom";
-import { BiSearchAlt } from 'react-icons/bi' 
+import { BiSearchAlt } from 'react-icons/bi'
 import { useState } from "react";
 import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
@@ -15,12 +15,14 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
     const { user, setUser } = useContext(UserContext)
     const searchPrevented = search === '' ? 'all' : search
 
+    const verifyUser = user.token === undefined;
+
     function showAndSearch() {
         setInputWidth('180px')
-        setInputPadding('0px 0px 0px 15px') 
+        setInputPadding('0px 0px 0px 15px')
         setMarginButton('-30px')
 
-        if(search !== '') {
+        if (search !== '') {
             navigate(`/products/${search}`)
         }
     }
@@ -36,9 +38,9 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
             <Navbar width={width} inputWidth={inputWidth} inputPadding={inputPadding} marginButton={marginButton}>
                 <div className="navbar">
                     <div>
-                        <input type="text" value={search} placeholder="Pesquisar produto..." 
-                            onChange={e => setSearch(e.target.value)} 
-                            onKeyDown={e => e.key === 'Enter' ? navigate(`/products/${searchPrevented}`) : false} 
+                        <input type="text" value={search} placeholder="Pesquisar produto..."
+                            onChange={e => setSearch(e.target.value)}
+                            onKeyDown={e => e.key === 'Enter' ? navigate(`/products/${searchPrevented}`) : false}
                         />
                         <button onClick={showAndSearch}>
                             <BiSearchAlt />
@@ -51,11 +53,11 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
                     </section>
                     <section>
                         <h1>Conta</h1>
-                        <NavLink to="/login">Login</NavLink>
-                        <NavLink to="/register">Cadastrar-se</NavLink>
-                        <NavLink to="/user">Minha Conta</NavLink>
-                        <NavLink to="/sell">Vender Produto</NavLink>
-                        <NavLink to="/cart">Carrinho</NavLink>
+                        {verifyUser ? <NavLink to="/login">Login</NavLink> : ""}
+                        {verifyUser ? <NavLink to="/register">Cadastrar-se</NavLink> : ""}
+                        {verifyUser ? "" : <NavLink to="/user">Minha Conta</NavLink>}
+                        {verifyUser ? "" : <NavLink to="/sell">Vender Produto</NavLink>}
+                        {verifyUser ? "" : <NavLink to="/cart">Carrinho</NavLink>}
                         {user.token !== undefined ? <h3 onClick={logout}>Logout</h3> : ''}
                     </section>
                 </div>
