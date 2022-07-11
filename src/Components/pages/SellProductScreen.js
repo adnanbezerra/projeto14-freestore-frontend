@@ -85,7 +85,7 @@ export default function CreateProduct() {
 
         try {
             await axios.post(`${BASE_URL}/new-product`, newProduct, header)
-            
+
             alert("Produto cadastrado com sucesso!");
             navigate("/");
         } catch (error) {
