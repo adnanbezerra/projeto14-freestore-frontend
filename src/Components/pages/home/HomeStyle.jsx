@@ -6,13 +6,17 @@ export const HomeWrapper = styled.div`
         object-fit: cover;
     }
 
-    .cards > div:last-child {
+    .cards > div:last-child, .sellers > div:last-child {
         display: flex;
         align-items: center;
         overflow-x: scroll;
         height: 280px;
         margin-top: -18px;
         margin-left: 17px;
+    }
+
+    .sellers > div:last-child {
+        height: 350px;
     }
 
     .all-products > div:last-child {
@@ -26,21 +30,25 @@ export const HomeWrapper = styled.div`
         height: auto;
     }
 
-    .cards > div:last-child::-webkit-scrollbar {
+    .cards > div:last-child::-webkit-scrollbar, .sellers > div:last-child::-webkit-scrollbar {
         height: 8px;
     } 
   
-    .cards > div:last-child::-webkit-scrollbar-thumb {   
+    .cards > div:last-child::-webkit-scrollbar-thumb, .sellers > div:last-child::-webkit-scrollbar-thumb {   
         background-color: rgba(169, 169, 169, 0.3);   
     }
 
     @media screen and (max-width: 450px) {
-        .cards > div:last-child::-webkit-scrollbar {
+        .cards > div:last-child::-webkit-scrollbar, .sellers > div:last-child::-webkit-scrollbar {
             display: none;
         }
 
         .cards > div:last-child {
             height: 170px;
+        }
+
+        .sellers > div:last-child {
+            height: 300px;
         }
     }
 `

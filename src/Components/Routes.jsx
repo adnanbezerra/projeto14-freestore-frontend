@@ -27,6 +27,7 @@ export default function Router() {
                 <Route path="/finalize-purchase" element={<PurchaseScreen />} />
                 <Route path="/sell" element={<CreateProduct />} />
                 <Route path="/products/:name" element={<ProductsScreen />} />
+                <Route path="/products/:seller/:id" element={<ProductsScreen />} />
             </Routes>
         </BrowserRouter>
     )

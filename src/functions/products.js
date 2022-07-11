@@ -1,8 +1,13 @@
 import axios from "axios"
 import { BASE_URL } from "../mock/data"
 
-async function getProducts(setProducts, category = '', name = '') {
-    const productsData = await axios.get(`${BASE_URL}/products?${name !== '' ? `name=${name}` : `category=${category}`}`)
+async function getProducts(setProducts, category = '', name = '', sellerId = '') {
+    const productsOrSeller = name !== '' ? 
+        `name=${name}` : category !== '' ? 
+        `category=${category}` : sellerId !== '' ? 
+        `sellerId=${sellerId}` : ''
+
+    const productsData = await axios.get(`${BASE_URL}/products?${productsOrSeller}`)
     setProducts(productsData.data)
 }
 
