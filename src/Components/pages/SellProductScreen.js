@@ -21,7 +21,6 @@ export default function CreateProduct() {
     const [imageTwo, setImageTwo] = useState("");
     const [imageThree, setImageThree] = useState("");
     const [imageFour, setImageFour] = useState("");
-    const [imagesArray, setImagesArray] = useState([]);
 
     const categories = [
         {
