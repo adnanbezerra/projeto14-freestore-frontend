@@ -10,6 +10,7 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
     const [inputPadding, setInputPadding] = useState('0px')
     const [marginButton, setMarginButton] = useState('0px')
     const [search, setSearch] = useState('')
+    const searchPrevented = search === '' ? 'all' : search
 
     function showAndSearch() {
         setInputWidth('180px')
@@ -28,7 +29,7 @@ export default function Menu({ setWidth, setDisplay, display, width }) {
                     <div>
                         <input type="text" value={search} placeholder="Pesquisar produto..." 
                             onChange={e => setSearch(e.target.value)} 
-                            onKeyDown={e => e.key === 'Enter' ? navigate(`/products/${search}`) : false} 
+                            onKeyDown={e => e.key === 'Enter' ? navigate(`/products/${searchPrevented}`) : false} 
                         />
                         <button onClick={showAndSearch}>
                             <BiSearchAlt />

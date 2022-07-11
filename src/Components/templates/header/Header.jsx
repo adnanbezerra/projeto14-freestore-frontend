@@ -13,7 +13,8 @@ export default function Header() {
     const [display, setDisplay] = useState('none')
     const [products, setProducts] = useState([])
     const [search, setSearch] = useState('')
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const searchPrevented = search === '' ? 'all' : search
 
     useEffect(() => {
         getProducts(setProducts)
@@ -29,9 +30,9 @@ export default function Header() {
                 <div className="search">
                     <input type="text" value={search} placeholder="Pesquisar produto..." 
                         onChange={e => setSearch(e.target.value)}
-                        onKeyDown={e => e.key === 'Enter' ? navigate(`/products/${search}`) : false} 
+                        onKeyDown={e => e.key === 'Enter' ? navigate(`/products/${searchPrevented}`) : false} 
                     />
-                    <button onClick={() => navigate(`/products/${search}`)}>
+                    <button onClick={() => navigate(`/products/${searchPrevented}`)}>
                         <BiSearchAlt />
                     </button>
                 </div>
