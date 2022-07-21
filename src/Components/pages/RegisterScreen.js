@@ -26,7 +26,7 @@ export default function RegisterScreen() {
     function submitForm(event) {
         event.preventDefault();
 
-        if (!(profilePicture.startsWith('https://') && profilePicture.startsWith("http://"))) {
+        if (!profilePicture.startsWith('https://') && !profilePicture.startsWith("http://")) {
             alert("Link da foto de perfil inválido!")
             return;
         }
