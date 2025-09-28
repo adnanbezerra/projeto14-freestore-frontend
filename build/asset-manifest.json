@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.503d4dc2.css",
+    "main.js": "/static/js/main.475c60b3.js",
+    "static/media/category-toys.jpg": "/static/media/category-toys.c6afdb7bb80ddd63086c.jpg",
+    "static/media/category-sports.jpg": "/static/media/category-sports.715f6a8c2830611f3a3d.jpg",
+    "static/media/roupa1.jpg": "/static/media/roupa1.7059e0fb899c9e3f44a4.jpg",
+    "static/media/category-eletronics.jpg": "/static/media/category-eletronics.2cef3f0101e324f7c016.jpg",
+    "static/media/pc1.jpg": "/static/media/pc1.e544eb43c6aeb2e0b305.jpg",
+    "static/media/category-books.jpg": "/static/media/category-books.49a6ddd63c94da8be569.jpg",
+    "static/media/category-appliances.jpg": "/static/media/category-appliances.4eba1773051e6be73b7b.jpg",
+    "static/media/tenis1.jpg": "/static/media/tenis1.2aecd21722fa7498d2cd.jpg",
+    "static/media/roupa2.jpg": "/static/media/roupa2.1e62b12e38214daa0ecc.jpg",
+    "static/media/category-furniture.jpg": "/static/media/category-furniture.543cf0e925b4f645aadc.jpg",
+    "static/media/category-cosmetics.jpg": "/static/media/category-cosmetics.bf2dd27de653d1b575ff.jpg",
+    "static/media/category-clothes.jpg": "/static/media/category-clothes.3faa720fb3323d88be73.jpg",
+    "index.html": "/index.html",
+    "main.503d4dc2.css.map": "/static/css/main.503d4dc2.css.map",
+    "main.475c60b3.js.map": "/static/js/main.475c60b3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.503d4dc2.css",
+    "static/js/main.475c60b3.js"
+  ]
+}
