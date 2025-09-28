@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { getProducts } from "../../../functions/products";
 import PageTitle from "../../templates/page-title/PageTitle";
-import { categories } from "../../../mock/data";
+import { categories } from "../../../shared/data";
 import CategoryCard from "../../templates/category-card/CategoryCard";
 import ProductCard from "../../templates/product-card/ProductCard";
 import { CategoriesWrapper } from "./CategoriesStyle";

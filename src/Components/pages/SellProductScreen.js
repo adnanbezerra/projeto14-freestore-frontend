@@ -4,7 +4,7 @@ import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import Layout from "../templates/layout/Layout";
 import axios from "axios";
-import { BASE_URL, config } from "../../mock/data";
+import { BASE_URL, config } from "../../shared/data";
 
 export default function CreateProduct() {
 

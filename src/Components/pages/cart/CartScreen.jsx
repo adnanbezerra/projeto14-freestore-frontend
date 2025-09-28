@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL, config } from "../../../mock/data";
+import { BASE_URL, config } from "../../../shared/data";
 import UserContext from "../../contexts/UserContext";
 import CartCard from "../../templates/cart-card/CartCard";
 import Layout from "../../templates/layout/Layout";

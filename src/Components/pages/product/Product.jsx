@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct, getProducts } from "../../../functions/products";
-import { BASE_URL, config } from "../../../mock/data";
+import { BASE_URL, config } from "../../../shared/data";
 import UserContext from "../../contexts/UserContext";
 import Layout from "../../templates/layout/Layout";
 import ProductCard from "../../templates/product-card/ProductCard";

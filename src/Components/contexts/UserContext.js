@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
-import { BASE_URL, config } from "../../mock/data";
+import { BASE_URL, config } from "../../shared/data";
 
 const UserContext = createContext();
 

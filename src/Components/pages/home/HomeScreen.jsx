@@ -1,4 +1,4 @@
-import { categories, carouselImages, BASE_URL } from "../../../mock/data";
+import { categories, carouselImages, BASE_URL } from "../../../shared/data";
 import CategoryCard from "../../templates/category-card/CategoryCard";
 import Layout from "../../templates/layout/Layout";
 import ProductCard from "../../templates/product-card/ProductCard";

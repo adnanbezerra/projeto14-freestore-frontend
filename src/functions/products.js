@@ -1,5 +1,5 @@
 import axios from "axios"
-import { BASE_URL } from "../mock/data"
+import { BASE_URL } from "../shared/data"
 
 async function getProducts(setProducts, category = '', name = '', sellerId = '') {
     const productsOrSeller = name !== '' ? 

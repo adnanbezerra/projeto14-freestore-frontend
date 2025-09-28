@@ -5,8 +5,8 @@ import Layout from "../templates/layout/Layout";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import styled from "styled-components";
 import axios from "axios";
-import { BASE_URL } from "../../mock/data";
-import { config } from "../../mock/data";
+import { BASE_URL } from "../../shared/data";
+import { config } from "../../shared/data";
 
 export default function EditUserScreen() {
 

@@ -1,5 +1,5 @@
 import { MenuWrapper, Navbar, NavLink } from "./MenuStyle"
-import { categories } from '../../../mock/data'
+import { categories } from '../../../shared/data'
 import { useNavigate } from "react-router-dom";
 import { BiSearchAlt } from 'react-icons/bi'
 import { useState } from "react";

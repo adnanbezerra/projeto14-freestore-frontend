@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { FiEdit2 } from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL, config } from "../../mock/data";
+import { BASE_URL, config } from "../../shared/data";
 
 export default function UserScreen() {
 

@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
 import logo from '../assets/images/logo.png';
-import { BASE_URL } from '../../mock/data';
+import { BASE_URL } from '../../shared/data';
 
 export default function TelaLogin() {
     const [password, setPassword] = useState("");
